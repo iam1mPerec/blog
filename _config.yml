@@ -15,7 +15,7 @@ timezone: Europe/Berlin
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
-title: mBlog                           # the main title
+title: myBlog                           # the main title
 
 tagline: By Alex Lytvytskyi   # it will display as the sub-title
 
@@ -76,7 +76,7 @@ theme_mode: dark
 img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/commons/avatar.jpg
+avatar: /assets/img/knight.jpg
 
 # boolean type, the global switch for ToC in posts.
 toc: true
