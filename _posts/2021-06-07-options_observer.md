@@ -11,13 +11,13 @@ So I watched Javidx9’s tutorial on creating menus https://www.youtube.com/watc
 and I really liked the idea of simplifying Users’ life by adding the ability to add menus quickly like:
 
 ```c++ 
-menu m;
-m["start"];
-m["load"];
-m["load"]["slot 1"]; 
-m["load"]["slot 2"];
-m["load"]["slot 3"]; 
-m["quit"];
+menu MENU;
+MENU["start"];
+MENU["load"];
+MENU["load"]["slot 1"]; 
+MENU["load"]["slot 2"];
+MENU["load"]["slot 3"]; 
+MENU["quit"];
 ```
 
 Now that looks *fancy*! Let’s quickly go over how he achieved this in case you like to read more than you like to watch videos for some reason.
