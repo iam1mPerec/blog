@@ -6,8 +6,6 @@ tags: [c++]     # TAG names should always be lowercase
 comments: true
 ---
 
-# Let's talk strategy!
-
 Dear Grandma 
 
 So you want to start using 

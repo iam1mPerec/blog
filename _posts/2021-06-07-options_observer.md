@@ -5,8 +5,6 @@ categories: [olcPixelGameEngine, c++]
 tags: [c++]     # TAG names should always be lowercase
 ---
 
-# Observing menu options
-
 So I watched [Javidx9’s](https://github.com/OneLoneCoder) tutorial on creating menus [Programming Menu System](https://www.youtube.com/watch?v=jde1Jq5dF0E&t=2676s)
 and I really liked the idea of simplifying Users’ life by adding the ability to add menus quickly like:
 
