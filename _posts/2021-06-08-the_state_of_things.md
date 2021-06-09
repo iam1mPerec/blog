@@ -1,5 +1,5 @@
 ---
-title: let us talk strategy
+title: the State of things
 date: 2021-06-08 12:03:00 +0200
 categories: [olcPixelGameEngine, c++]
 tags: [c++]     # TAG names should always be lowercase
@@ -10,7 +10,7 @@ Dear Grandma
 So you want to start using 
 [olcPixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine) to write your awesome game.
 Fair enough. Where would I advise you to start?  
-Well how about a strategy pattern?
+Well how about a state pattern?
 
 So in your game you might have a start menu with options like:  
 * start
@@ -19,8 +19,8 @@ So in your game you might have a start menu with options like:
 
 very basic staff.
 
-![img-strategy](/assets/post_assets/strategy.png)
-_Strategy Pattern_
+![img-state](/assets/post_assets/state.png)
+_State Pattern_
 
 When you press start or load you would not need this menu anymore. All of its logic and menu names are now useless.  
 A similar situation would occur if you move between levels. You might need a few details from your previous levels like what
@@ -42,7 +42,7 @@ As usual I want to first show how it should work:
 
 ```c++
 class engine : public olc::PixelGameEngine {
-//implementing gameMod ref as a part of the Strategy design pattern
+//implementing gameMod ref as a part of the State design pattern
 //gameMode will tell the engine what to draw where and when
 //the engine would handle drawing and keyboard events
     class gameMode* m_mode;
