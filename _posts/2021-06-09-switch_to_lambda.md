@@ -1,6 +1,6 @@
 ---
-title: switching to lambda
-date: 2021-06-09 12:03:00 +0200
+title: switch to lambda
+date: 2021-06-10 12:03:00 +0200
 categories: [c++, basics]
 tags: [lambda]     # TAG names should always be lowercase
 ---
