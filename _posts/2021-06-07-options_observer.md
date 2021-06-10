@@ -1,7 +1,7 @@
 ---
 title: observing menu options
 date: 2021-06-07 18:03:00 +0200
-categories: [olcPixelGameEngine, c++]
+categories: [olcPixelGameEngine, patterns]
 tags: [c++]     # TAG names should always be lowercase
 ---
 
