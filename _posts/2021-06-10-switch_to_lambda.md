@@ -15,28 +15,28 @@ Like so:
 using namespace std;
 
 enum class eCalculation {
-	add,
-	subtract,
-	multiply,
-	divide
+  add,
+  subtract,
+  multiply,
+  divide
 };
 
 float calculate(float a, float b, eCalculation calculationType) {
-	switch (calculationType) {
-		case eCalculation::add:
-			return a + b;
-		case eCalculation::subtract:
-			return a - b;
-		case  eCalculation::multiply:
-			return a * b;
-		case  eCalculation::divide:
-			return a / b;
-	}
+  switch (calculationType) {
+    case eCalculation::add:
+      return a + b;
+    case eCalculation::subtract:
+      return a - b;
+    case  eCalculation::multiply:
+      return a * b;
+    case  eCalculation::divide:
+      return a / b;
+  }
 }
 
 int main()
 {
-	cout << calculate(10, 5, eCalculation::add) << endl;
+  cout << calculate(10, 5, eCalculation::add) << endl;
 }
 ```
 
@@ -54,13 +54,13 @@ using namespace std;
 
 int main()
 {
-	map<char, double(*)(double, double)> operators{
-		{'+', [](double a, double b) {return a + b; }},
-		{'-', [](double a, double b) {return a - b; }},
-		{'*', [](double a, double b) {return a * b; }},
-		{'/', [](double a, double b) {return a / b; }}
-	};
-	cout<<operators['-'](1, 5)<<endl;
+  map<char, double(*)(double, double)> operators{
+    {'+', [](double a, double b) {return a + b; }},
+    {'-', [](double a, double b) {return a - b; }},
+    {'*', [](double a, double b) {return a * b; }},
+    {'/', [](double a, double b) {return a / b; }}
+  };
+  cout<<operators['-'](1, 5)<<endl;
 }
 ```
 Hope it was informative. There is a lot more to be said about lambda functions,

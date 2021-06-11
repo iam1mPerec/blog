@@ -46,13 +46,13 @@ public:
 
   menu(std::string name = "root") : m_name(name) {  }
 
-  menu & operator[](const std::string& name) {
-        if (m_indexes.count(name) == 0) {
-            m_indexes[name] = m_options.size();
-            m_options.push_back(menu(name));
-        }
-        return m_options[m_indexes[name]];
+  menu& operator[](const std::string& name) {
+    if (m_indexes.count(name) == 0) {
+      m_indexes[name] = m_options.size();
+      m_options.push_back(menu(name));
     }
+    return m_options[m_indexes[name]];
+  }
 };
 ```
 
@@ -65,23 +65,23 @@ ok. So now let’s add a few things:
 #include <string>
 
 class menu {
-	std::string m_name;
-	std::unordered_map <std::string, size_t> m_indexes;
-	std::vector<menu> m_options;
+  std::string m_name;
+  std::unordered_map <std::string, size_t> m_indexes;
+  std::vector<menu> m_options;
 
-    int m_id; //would be useful for sending signals
-    static int ID; // a unique id for a new option
+  int m_id; //would be useful for sending signals
+  static int ID; // a unique id for a new option
 public:
-    //now we to add id to menu constructor:
-    menu(int id = 0, std::string name = "root") : m_id(id), m_name(name) {  }
+  //now we to add id to menu constructor:
+  menu(int id = 0, std::string name = "root") : m_id(id), m_name(name) {  }
 
-    menu & operator[](const std::string& name) {
-        if (m_indexes.count(name) == 0) {
-            m_indexes[name] = m_options.size();
-            m_options.push_back(menu(++ID, name));
-        }
-        return m_options[m_indexes[name]];
+  menu& operator[](const std::string& name) {
+    if (m_indexes.count(name) == 0) {
+        m_indexes[name] = m_options.size();
+        m_options.push_back(menu(++ID, name));
     }
+    return m_options[m_indexes[name]];
+  }
 };
 
 int menu::ID = 0;
@@ -115,17 +115,17 @@ So first let’s create an observer:
 #include <functional>
 
 enum class eSignals {
-	click,
-	check
+  click,
+  check
 };
 
 template <typename T>
 class observer {
-    std::map<eSignals, std::map<int, std::function<void(T&)>>> m_events;
+  std::map<eSignals, std::map<int, std::function<void(T&)>>> m_events;
 public:
-    void connect(int senderID, eSignals signal, std::function<void(T&)> slot);
-    void dispatch(T& sender, eSignals signal);
-    observer();
+  void connect(int senderID, eSignals signal, std::function<void(T&)> slot);
+  void dispatch(T& sender, eSignals signal);
+  observer();
 };
 
 template <typename T>
@@ -135,12 +135,12 @@ observer<T>::observer() {
 
 template <typename T>
 void observer<T>::dispatch(T& sender, eSignals signal) {
-  if(m_events[signal][sender.getID()])      m_events[signal][sender.getID()](sender);
+  if (m_events[signal][sender.getID()])      m_events[signal][sender.getID()](sender);
 }
 
 template <typename T>
 void observer<T>::connect(int senderID, eSignals signal, std::function<void(T&)> slot) {
-    m_events[signal][senderID] = slot;
+  m_events[signal][senderID] = slot;
 }
 ```
 
@@ -160,26 +160,26 @@ Now all we have left to do is to define the connect method in menuManager class 
 
 ```c++
 const menu& menuManager::connect(const menu& menu, eSignals signal, std::function<void(class menu&)> slot) {
-    m_observer.connect(menu.getID(), signal, slot);
-    return menu;
+  m_observer.connect(menu.getID(), signal, slot);
+  return menu;
 }
 ```
 Now whenever menuManager get’s invoked it can do something like this:
 ```c++
 void menuManager::submit() {
-//we check which option is currently selected as menu was clicked
+  //we check which option is currently selected as menu was clicked
   auto sender = m_menuStack.top()->option(m_currentIndex);
-//if clicked option contains nested menu we proceed to that menu
-//e.g. if [load] is clicked let player 
-// choose between [slot 1], [slot 2] or [slot 3]
+  //if clicked option contains nested menu we proceed to that menu
+  //e.g. if [load] is clicked let player 
+  // choose between [slot 1], [slot 2] or [slot 3]
   if (m_menuStack.top()->option(m_currentIndex).getItemsCount()) {
-//push selected option to the top
+    //push selected option to the top
     m_menuStack.push(&m_menuStack.top()->option(m_currentIndex));
-//currently selected item index in this menu is going to be 0
+    //currently selected item index in this menu is going to be 0
     m_currentIndex = 0;
   }
-//finally dispatch the click action to tell the game that
-//an option was clicked
+  //finally dispatch the click action to tell the game that
+  //an option was clicked
   m_observer.dispatch(sender, eSignals::click);
 }
 ```

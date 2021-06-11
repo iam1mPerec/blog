@@ -18,21 +18,21 @@ So we can use:
 
 here is an example:
 
-````c++
+```c++
 #include <iostream>
 
 int main()
 {
-	int a = 5;
-	int b = 7;
+  int a = 5;
+  int b = 7;
 //results in compilation error as parameter b is a const copy of b
-	std::cout << [a, b] { return b += a; }() << std::endl;
+  std::cout << [a, b] { return b += a; }() << std::endl;
 //same here
-	std::cout << [=] { return b += a; }() << std::endl;
+  std::cout << [=] { return b += a; }() << std::endl;
 //b is changed as both a and b are references.
-	std::cout << [&] { return b += a; }() << std::endl;
+  std::cout << [&] { return b += a; }() << std::endl;
 //b is changed again as it is a reference and a is a constant copy.
-	std::cout << [a,&b] { return b+= a; }() << std::endl;
+  std::cout << [a,&b] { return b+= a; }() << std::endl;
 }
 ```
 
@@ -44,10 +44,10 @@ If that is what your heart desires there is a way to make regular copies of pass
 
 int main()
 {
-	int a = 5;
-	int b = 10;
-  std::cout << [a, b]() mutable { return b += a; }() << std::endl;
+  int a = 5;
+  int b = 10;
 //prints 15
+  std::cout << [a, b]() mutable { return b += a; }() << std::endl;
 }
 ```
 
@@ -58,12 +58,12 @@ impressed? well prepare to be amazed! Let’s consider next example:
 
 int main()
 {
-	auto func = [count = 0]() mutable { return ++count; };
-	for (int i = 0; i < 5; i++) {
-		std::cout << func() << ", ";
-	}
-	std::cout << std::endl;
-	//outputs 1,2,3,4,5
+  auto func = [count = 0]() mutable { return ++count; };
+  for (int i = 0; i < 5; i++) {
+    std::cout << func() << ',';
+  }
+  //outputs 1,2,3,4,5
+  std::cout << std::endl;
 }
 ```
 
