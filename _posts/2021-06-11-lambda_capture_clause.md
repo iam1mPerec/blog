@@ -60,10 +60,10 @@ int main()
 {
 	auto func = [count = 0]() mutable { return ++count; };
 	for (int i = 0; i < 5; i++) {
-		std::cout<<func()<<”,”;
+		std::cout << func() << ", ";
 	}
-  std::cout<<func()<<std::endl;
-//outputs 1,2,3,4,5
+	std::cout << std::endl;
+	//outputs 1,2,3,4,5
 }
 ```
 
