@@ -5,7 +5,7 @@ categories: [c++, basics]
 tags: [lambda]     # TAG names should always be lowercase
 ---
 Lambdas have their very own capture clause.  
-What is it?  
+What is it? How to use it to our advantage? 
 Let’s find out!  
 Capture clause basically defines which parameters we want to capture by value and which by reference.
 So we can use:
