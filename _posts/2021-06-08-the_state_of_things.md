@@ -50,7 +50,9 @@ public:
     engine() : m_mode(nullptr) {}
     void begin() {
         if (Construct(900, 600, 1, 1)) {
-            m_mode = new GMStartMenu(ScreenWidth(), ScreenHeight());
+            //gameMod will handle transfering to another mode
+            //that is why it takes engine as a parameter
+            m_mode = new GMStartMenu(this);
             Start();
         }
     }
@@ -63,6 +65,7 @@ public:
         //next we set a new game mode that we received
         //please stay tuned to find out where from
         m_mode = newGameMode;
+        clearLayers();
         //honestly I did not know what to call this method
         //but DrawFrame basicly draws what needs to be
         //drawn first after new game mode is initialised
@@ -86,12 +89,9 @@ public:
         //after them. So if you pressed start in your
         //MainMenu GameMode it will lead you to your
         //Level_1 GameMode or something like this
-            //MARK: - Update state
-        if (m_mode->modeChanged()) {
-            setGameMode(m_mode->getNewMode());
-        }
+        //MARK: - Update state
         //MARK: - Draw frame
-    //Draw method handles drawing after initial draw (by DrawFrame method)
+        //Draw method handles drawing after initial draw (by DrawFrame method)
         m_mode->Draw(this);
 
         //Here we ask GameMode if we are done with the game yet.
@@ -100,7 +100,7 @@ public:
     ~engine() {
         //since modes are created dynamically
         //always remember to delete them in the end
-        // to avoid memory leaks
+        //to avoid memory leaks
         delete m_mode;
     }
 };
@@ -117,35 +117,20 @@ protected:
     //as already mentioned game mode can tell the engine
     //which mode will come after
     //this game mode is done
-    gameMode* m_newMode;
+    engine* m_engine;
 
 public:
-    gameMode() :
+    gameMode(engine* engine) :
         m_inProgress(true),
-        m_newMode(nullptr) {}
+        m_engine(engine) {}
     //does nothing unless redefined by a child game mode
-    virtual void DrawFrame(class engine* engine) {}
+    virtual void DrawFrame() {}
     //needs to be redefined by the child
     //also makes this class abstract so
     //an instance of this class can not be created
     //by users
-    virtual void Draw(class engine* engine) = 0;
+    virtual void Draw() = 0;
     bool inProgress() const;
-    //here we are trying to find out if our game mode ready
-    //to pass it's control over the engine and be deleted
-    //sad but necessary
-    bool modeChanged() const {
-        //Technically you don't need the '? true : false' part
-        //m_newMode will automatically return false if is
-        //a nullptr, but I like to keep it like this so the user
-        //can see that we return bool and not a GameMode 
-        return m_newMode ? true : false;
-    }
-    gameMode* getNewMode() const {
-        //basic getter that returns our newGameMode
-        return m_newMode;
-    }
-
     //a bunch of input handlers that can be redefined later
     //or left alone if you want them to do nothing
     virtual void submit() {}
@@ -200,7 +185,7 @@ public:
         //by creating a new GameMode we are telling
         //game loop that we are ready to delete this
         //mode and move on to the next
-        m_newMode = new GMLevel_1();
+        m_engine->setGameMode(new newMode(m_engine));
     }
     void onLoadClicked(class menu& sender) {
         //here is what's cool. Before current GameMode dies
@@ -211,8 +196,9 @@ public:
         //also we can even load a different GM
         //if we saved on say lvl 3, we can create
         //game mode lvl 3 
-        m_newMode = new GMLevel_3();
-        GMLevel_3.setHat(eHats::strawHat);
+        auto newMode = new GMLevel_3();
+        newMode.setHat(eHats::strawHat);
+        m_engine->setGameMode(new GMLevel_1(m_engine));
     }
     void onQuitClicked(class menu& sender) {
         //as previously mentioned just setting this to false
@@ -223,7 +209,9 @@ public:
     //here we redefine input handlers
     //notice that we did not redefine left() right()
     //handlers since we don't need them 
-        //MARK: - User input
+
+
+//MARK: - User input
     void submit() override;
     void quit() override;
     void up() override;
