@@ -2,7 +2,7 @@
 title: lambda capture clause
 date: 2021-06-11 12:03:00 +0200
 categories: [c++, basics]
-tags: [lambda]     # TAG names should always be lowercase
+tags: [lambda, c++]     # TAG names should always be lowercase
 ---
 Lambdas have their very own capture clause.  
 What is it? How to use it to our advantage? 

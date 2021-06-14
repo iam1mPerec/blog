@@ -182,8 +182,8 @@ public:
     //MARK: - slots
 //this slots are called when menu options are clicked
     void onStartClicked(class menu& sender) {
-        //by creating a new GameMode we are telling
-        //game loop that we are ready to delete this
+        //by calling setMode we are telling
+        //engine to delete the current
         //mode and move on to the next
         m_engine->setGameMode(new newMode(m_engine));
     }

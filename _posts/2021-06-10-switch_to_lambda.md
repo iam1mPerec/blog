@@ -2,7 +2,7 @@
 title: switch to lambda
 date: 2021-06-10 12:03:00 +0200
 categories: [c++, basics]
-tags: [lambda]     # TAG names should always be lowercase
+tags: [lambda, c++]     # TAG names should always be lowercase
 ---
 
 So we all love switch. It is great! You create an enum, make a variable, pass it to switch and get all sorts of different things going.  
